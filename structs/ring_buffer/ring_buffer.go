@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 )
 
 /*
@@ -20,53 +19,15 @@ import (
 		Constant for all operations, O(1)
 */
 
-func main() {
-	rb := New(7)
-
-	for i := int64(1); i <= 10; i++ {
-		err := rb.Write(i)
-		if err != nil {
-			fmt.Println("write to ring-buffer error:", err)
-		}
-	}
-
-	for i := int64(1); i <= 10; i++ {
-		val, err := rb.Read()
-		if err != nil {
-			fmt.Println("write to ring-buffer error:", err)
-			continue
-		}
-		fmt.Println("value:", val)
-	}
-
-	for i := int64(100); i <= 105; i++ {
-		err := rb.Write(i)
-		if err != nil {
-			fmt.Println("write to ring-buffer error:", err)
-		}
-	}
-
-	for i := int64(1); i <= 10; i++ {
-		val, err := rb.Read()
-		if err != nil {
-			fmt.Println("write to ring-buffer error:", err)
-			continue
-		}
-		fmt.Println("value:", val)
-	}
-
-	fmt.Println("ring-buffer:", rb)
-}
-
 type ringBuffer struct {
-	buf      []int64
+	buf      []interface{}
 	readPos  int // Начинается с 0
 	writePos int // Начинается с -1
 }
 
 func New(size int) *ringBuffer {
 	return &ringBuffer{
-		buf:      make([]int64, size),
+		buf:      make([]interface{}, size),
 		writePos: -1,
 	}
 }
@@ -75,7 +36,7 @@ func New(size int) *ringBuffer {
 // Извлекая элемент мы не удаляем его, а увеличиваем маркер чтения
 // Time O(1)
 // Space O(1)
-func (r *ringBuffer) Read() (int64, error) {
+func (r *ringBuffer) Read() (interface{}, error) {
 	if r.isEmpty() {
 		return 0, errors.New("ring buffer is empty")
 	}
@@ -90,7 +51,7 @@ func (r *ringBuffer) Read() (int64, error) {
 // Write добавляет элемент в буфер
 // Time O(1)
 // Space O(1)
-func (r *ringBuffer) Write(item int64) error {
+func (r *ringBuffer) Write(item interface{}) error {
 	if r.isFull() {
 		return errors.New("ring buffer is full")
 	}

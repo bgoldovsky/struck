@@ -17,15 +17,15 @@ import (
 */
 
 type Deque interface {
-	PushBack(item int64) error
-	PopBack() (int64, error)
-	PushFront(item int64) error
-	PopFront() (int64, error)
+	PushBack(item interface{}) error
+	PopBack() (interface{}, error)
+	PushFront(item interface{}) error
+	PopFront() (interface{}, error)
 	Size() int
 }
 
 type deque struct {
-	buf   []int64
+	buf   []interface{}
 	max   int
 	size  int
 	front int
@@ -34,7 +34,7 @@ type deque struct {
 
 func New(maxSize int) *deque {
 	return &deque{
-		buf: make([]int64, maxSize),
+		buf: make([]interface{}, maxSize),
 		max: maxSize,
 	}
 }
@@ -49,7 +49,7 @@ func (d *deque) Size() int {
 // PushFront Добавляет элемент в начало очереди
 // Time O(1)
 // Space O(1)
-func (d *deque) PushFront(item int64) error {
+func (d *deque) PushFront(item interface{}) error {
 	if d.size == d.max {
 		return errors.New("push front: max deque size")
 	}
@@ -64,7 +64,7 @@ func (d *deque) PushFront(item int64) error {
 // PushBack Добавляет элемент в конец очереди
 // Time O(1)
 // Space O(1)
-func (d *deque) PushBack(item int64) error {
+func (d *deque) PushBack(item interface{}) error {
 	if d.size == d.max {
 		return errors.New("push back: max deque size")
 	}
@@ -79,7 +79,7 @@ func (d *deque) PushBack(item int64) error {
 // PopFront Извлекает элемент из конца очереди
 // Time O(1)
 // Space O(1)
-func (d *deque) PopFront() (int64, error) {
+func (d *deque) PopFront() (interface{}, error) {
 	if d.size == 0 {
 		return 0, errors.New("exp front: empty deque error")
 	}
@@ -94,7 +94,7 @@ func (d *deque) PopFront() (int64, error) {
 // PopBack Извлекает элемент из начала очереди
 // Time O(1)
 // Space O(1)
-func (d *deque) PopBack() (int64, error) {
+func (d *deque) PopBack() (interface{}, error) {
 	if d.size == 0 {
 		return 0, errors.New("exp back: empty deque error")
 	}
