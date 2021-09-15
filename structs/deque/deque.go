@@ -6,14 +6,10 @@ import (
 
 /*
 	Deque (Double ended queue)
-	Очередь с двумя концами, двусторонняя очередь
+	Двусторонняя очередь
 	==============================
-	I. Time:
-		Constant, O(1)
-	==============================
-	II. Space
-		Linear for init, O(n)
-		Constant for all operations, O(1)
+	I. Time: O(1)
+	II. Space: O(1)
 */
 
 type Deque interface {
