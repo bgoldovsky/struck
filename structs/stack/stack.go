@@ -1,9 +1,9 @@
 package main
 
 /*
-	Стек
+	Stack
 
-	Работает по принципу LIFO (Last in first out)
+	Стек работает по принципу LIFO (Last in first out)
 	==============================
 	I. Time: O(1)
 	II. Space: O(1)

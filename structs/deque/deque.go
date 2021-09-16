@@ -6,6 +6,7 @@ import (
 
 /*
 	Deque (Double ended queue)
+
 	Двусторонняя очередь
 	==============================
 	I. Time: O(1)
