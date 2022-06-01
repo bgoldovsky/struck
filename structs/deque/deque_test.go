@@ -5,7 +5,7 @@ import (
 )
 
 func TestDeque_Back_Success(t *testing.T) {
-	data := []struct {
+	tests := []struct {
 		push int64
 		pop  int64
 	}{
@@ -33,25 +33,25 @@ func TestDeque_Back_Success(t *testing.T) {
 
 	d := New(5)
 
-	for _, val := range data {
-		_ = d.PushBack(val.push)
+	for _, tt := range tests {
+		_ = d.PushBack(tt.push)
 	}
 
-	for _, val := range data {
+	for _, tt := range tests {
 		act, _ := d.PopBack()
-		if act != val.pop {
-			t.Errorf("expected: %v, act: %v", val.pop, act)
+		if act != tt.pop {
+			t.Errorf("expected: %v, act: %v", tt.pop, act)
 		}
 	}
 }
 
 func TestDeque_Back_Error(t *testing.T) {
-	data := []int64{100, 200}
+	tests := []int64{100, 200}
 
 	d := New(2)
 
-	for _, val := range data {
-		_ = d.PushBack(val)
+	for _, tt := range tests {
+		_ = d.PushBack(tt)
 	}
 
 	err := d.PushBack(300)
@@ -59,7 +59,7 @@ func TestDeque_Back_Error(t *testing.T) {
 		t.Error("push back expected error, got nil")
 	}
 
-	for range data {
+	for range tests {
 		_, _ = d.PopBack()
 	}
 
@@ -70,7 +70,7 @@ func TestDeque_Back_Error(t *testing.T) {
 }
 
 func TestDeque_Front_Success(t *testing.T) {
-	data := []struct {
+	tests := []struct {
 		push int64
 		pop  int64
 	}{
@@ -98,25 +98,25 @@ func TestDeque_Front_Success(t *testing.T) {
 
 	d := New(5)
 
-	for _, val := range data {
-		_ = d.PushFront(val.push)
+	for _, tt := range tests {
+		_ = d.PushFront(tt.push)
 	}
 
-	for _, val := range data {
+	for _, tt := range tests {
 		act, _ := d.PopFront()
-		if act != val.pop {
-			t.Errorf("expected: %v, act: %v", val.pop, act)
+		if act != tt.pop {
+			t.Errorf("expected: %v, act: %v", tt.pop, act)
 		}
 	}
 }
 
 func TestDeque_Front_Error(t *testing.T) {
-	data := []int64{100, 200}
+	tests := []int64{100, 200}
 
 	d := New(2)
 
-	for _, val := range data {
-		_ = d.PushFront(val)
+	for _, tt := range tests {
+		_ = d.PushFront(tt)
 	}
 
 	err := d.PushFront(300)
@@ -124,7 +124,7 @@ func TestDeque_Front_Error(t *testing.T) {
 		t.Error("push front expected error, got nil")
 	}
 
-	for range data {
+	for range tests {
 		_, _ = d.PopFront()
 	}
 
@@ -186,7 +186,7 @@ func TestDeque_Success(t *testing.T) {
 }
 
 func TestDeque_Mix_Success(t *testing.T) {
-	data := []struct {
+	tests := []struct {
 		push int64
 		exp  int64
 	}{
@@ -214,25 +214,25 @@ func TestDeque_Mix_Success(t *testing.T) {
 
 	d := New(10)
 
-	for _, val := range data {
-		_ = d.PushFront(val.push)
+	for _, tt := range tests {
+		_ = d.PushFront(tt.push)
 	}
 
-	for _, val := range data {
-		_ = d.PushBack(val.push * 10)
+	for _, tt := range tests {
+		_ = d.PushBack(tt.push * 10)
 	}
 
-	for _, val := range data {
+	for _, tt := range tests {
 		act, _ := d.PopFront()
-		if act != val.exp {
-			t.Errorf("expected: %v, act: %v", val.exp, act)
+		if act != tt.exp {
+			t.Errorf("expected: %v, act: %v", tt.exp, act)
 		}
 	}
 
-	for _, val := range data {
+	for _, tt := range tests {
 		act, _ := d.PopBack()
-		if act != val.exp*10 {
-			t.Errorf("expected: %v, act: %v", val.exp*10, act)
+		if act != tt.exp*10 {
+			t.Errorf("expected: %v, act: %v", tt.exp*10, act)
 		}
 	}
 }
